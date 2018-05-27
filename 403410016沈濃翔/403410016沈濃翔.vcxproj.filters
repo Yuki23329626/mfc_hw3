@@ -84,6 +84,12 @@
     <None Include="res\cursor2.cur">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\cursor3.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\cur00004.cur">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\403410016沈濃翔Doc.ico">

@@ -211,8 +211,10 @@
     <None Include="res\cur00001.cur" />
     <None Include="res\cur00002.cur" />
     <None Include="res\cur00003.cur" />
+    <None Include="res\cur00004.cur" />
     <None Include="res\cursor1.cur" />
     <None Include="res\cursor2.cur" />
+    <None Include="res\cursor3.cur" />
     <None Include="res\My403410016.rc2" />
   </ItemGroup>
   <ItemGroup>

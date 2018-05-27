@@ -250,14 +250,14 @@ public:
 	{
 		color = RGB(0, 255, 0);
 		fcolor = RGB(0, 0, 255);
-		shapenum = ID_DRAW_RECTANGLE;
+		shapenum = ID_DRAW_ELLIPSE;
 		StartPnt = (0, 0);
 		Filled = 1;
 	}
 	MyEllipse(CPoint StartPnt2, CPoint EndPnt2, COLORREF color2)
 	{
 		color = color2;
-		shapenum = ID_DRAW_LINE;
+		shapenum = ID_DRAW_ELLIPSE;
 		StartPnt = StartPnt2;
 		EndPnt = EndPnt2;
 	}
@@ -355,7 +355,7 @@ public:
 	MyRectangle(CPoint StartPnt2, CPoint EndPnt2, COLORREF color2)
 	{
 		color = color2;
-		shapenum = ID_DRAW_LINE;
+		shapenum = ID_DRAW_RECTANGLE;
 		StartPnt = StartPnt2;
 		EndPnt = EndPnt2;
 	}
