@@ -740,7 +740,7 @@ public:
 		}
 
 		int PNum = PArray.GetSize();
-		CPoint* pnts = (CPoint*)calloc(PNum, sizeof(CPoint));
+		CPoint* pnts = (CPoint*)calloc(PNum+1, sizeof(CPoint));
 		for (int i = 0; i < PNum; i++) {
 			//dc.MoveTo(PArray[i]);	//移至直線起點
 			//dc.LineTo(PArray[i + 1]);	//移至直線終點
