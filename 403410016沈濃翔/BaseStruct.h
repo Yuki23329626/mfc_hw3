@@ -30,7 +30,7 @@ public:
 			EndPnt = s.EndPnt;	//設定終點
 			return *this;
 		}
-		virtual void draw(CDC & aDC, COLORREF color, COLORREF fcolor, int width, BOOL Filled = false) = 0;
+		virtual void draw(CDC & aDC, COLORREF color, COLORREF fcolor, int width, int lineType, BOOL Filled = false) = 0;
 		int GetShapeNum()	//取得形狀代號
 		{
 			return shapenum;
@@ -104,9 +104,9 @@ public:
 		return *this;
 	}
 	void draw(CDC &dc, COLORREF color, COLORREF fcolor,
-		int width, BOOL Filled = false)
+		int width, int lineType, BOOL Filled = false)
 	{
-		CPen pen(LineType, width, color);	//建立畫筆物件
+		CPen pen(lineType, width, color);	//建立畫筆物件
 		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
 		dc.MoveTo(StartPnt);	//移至直線起點
 		dc.LineTo(EndPnt);	//移至直線終點
@@ -215,9 +215,9 @@ public:
 		return *this;
 	}
 	void draw(CDC &dc, COLORREF color, COLORREF fcolor,
-		int width, BOOL Filled = false)
+		int width, int lineType, BOOL Filled = false)
 	{
-		CPen pen(LineType, width, color);	//建立畫筆物件
+		CPen pen(lineType, width, color);	//建立畫筆物件
 		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
 		dc.MoveTo(StartPnt);	//移至直線起點
 		dc.LineTo(EndPnt);	//移至直線終點
@@ -274,11 +274,11 @@ public:
 		LineType = l.LineType;
 		return *this;
 	}
-	void draw(CDC & dc, COLORREF color, COLORREF fcolor, int width, BOOL Filled = false)
+	void draw(CDC & dc, COLORREF color, COLORREF fcolor, int width, int lineType, BOOL Filled = false)
 	{
 		CRect rect(StartPnt, EndPnt);	//建立CRect物件
 		CBrush m_newbrush;
-		CPen pen(LineType, width, color);	//建立畫筆物件
+		CPen pen(lineType, width, color);	//建立畫筆物件
 		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件		
 		if (Filled)
 		{
@@ -372,11 +372,11 @@ public:
 		LineType = l.LineType;
 		return *this;
 	}
-	void draw(CDC & dc, COLORREF color, COLORREF fcolor, int width, BOOL Filled = false)
+	void draw(CDC & dc, COLORREF color, COLORREF fcolor, int width, int lineType, BOOL Filled = false)
 	{
 		CRect rect(StartPnt, EndPnt);	//建立CRect物件
 		CBrush m_newbrush;
-		CPen pen(LineType, width, color);	//建立畫筆物件
+		CPen pen(lineType, width, color);	//建立畫筆物件
 		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
 
 		if (Filled)
@@ -617,9 +617,9 @@ public:
 		return *this;
 	}
 	void draw(CDC &dc, COLORREF color, COLORREF fcolor,
-		int width, BOOL Filled = false)
+		int width, int lineType, BOOL Filled = false)
 	{
-		CPen pen(LineType, width, color);	//建立畫筆物件
+		CPen pen(lineType, width, color);	//建立畫筆物件
 		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
 		int PNum = PArray.GetSize() - 1;
 		for (int i = 0; i < PNum; i++) {
@@ -710,9 +710,9 @@ public:
 		return *this;
 	}
 	void draw(CDC &dc, COLORREF color, COLORREF fcolor,
-		int width, BOOL Filled = false)
+		int width, int lineType, BOOL Filled = false)
 	{
-		CPen pen(LineType, width, color);	//建立畫筆物件
+		CPen pen(lineType, width, color);	//建立畫筆物件
 		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
 		int PNum = PArray.GetSize() - 1;
 		for (int i = 0; i < PNum; i++) {
