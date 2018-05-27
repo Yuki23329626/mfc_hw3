@@ -3,19 +3,20 @@
 #include <fstream>
 #include <string>
 using namespace std;
-class Shape	//形狀類別的基礎類別
+class Shape	// Base Class
 {
 public:
 	CPoint StartPnt, EndPnt, Prepoint;	//定義形狀的終點與起點
 	int LineWidth;
 	// BOOL Draw1;
-	int shapenum;	//形狀代號
+	int shapenum;	// 形狀代號
 	COLORREF color;
-	BOOL Filled;	//設定繪製形狀時，是否填滿 
+	BOOL Filled;	// 設定繪製形狀時，是否填滿
 	int LineType;
 	int FillHatchType;
 	int Fill_Selected; public:
-		//建構子
+
+		// Constructor
 		Shape()
 		{
 			LineWidth = 1;
@@ -23,7 +24,7 @@ public:
 			Filled = 0;
 			color = RGB(255, 0, 0);
 		}
-		//過載=運算子
+		// Override operator=
 		Shape & operator= (Shape & s)
 		{
 			StartPnt = s.StartPnt;	//設定起點
@@ -48,6 +49,8 @@ public:
 	CPoint point;	//定義形狀的終點與起點
 	COLORREF color;
 	int shapenum;
+
+	// Constructor
 	MyPoint()
 	{
 		color = RGB(255, 0, 0);
@@ -56,7 +59,8 @@ public:
 
 
 	}
-	//過載=運算子
+
+	// Override operator=
 	MyPoint & operator= (MyPoint & p)
 	{
 		point = p.point;
@@ -65,128 +69,129 @@ public:
 		return *this;
 	}
 };
+//
+//class MyArrow : public Shape	//直線類別
+//{
+//public:
+//	int Length;
+//	CPoint  ArrowUp, ArrowDown;
+//	MyArrow()
+//	{
+//		color = RGB(255, 0, 0);
+//		shapenum = 10;
+//		StartPnt.SetPoint(500, 300);
+//		//StartPnt.x=StartPnt.y=400;
+//		LineWidth = 1;
+//		Length = 300;
+//		EndPnt.SetPoint(StartPnt.x + Length, StartPnt.y);
+//		ArrowUp.SetPoint(int(EndPnt.x - Length / 10.), int(EndPnt.y + Length / 10.));
+//		ArrowDown.SetPoint(int(EndPnt.x - Length / 10.), int(EndPnt.y - Length / 10.));
+//	}
+//
+//	//建構子
+//	MyArrow(CPoint StartPnt2, CPoint EndPnt2, COLORREF color2)
+//	{
+//		color = color2;
+//		shapenum = ID_DRAW_LINE;
+//		StartPnt = StartPnt2;
+//		EndPnt = EndPnt2;
+//
+//	}
+//	//過載=運算子
+//	MyArrow & operator= (MyArrow & l)
+//	{
+//		StartPnt = l.StartPnt;
+//		color = l.color;
+//		LineWidth = l.LineWidth;
+//		EndPnt = l.EndPnt;
+//		shapenum = l.shapenum;
+//		return *this;
+//	}
+//	void draw(CDC &dc, COLORREF color, COLORREF fcolor,
+//		int width, int lineType, BOOL Filled = false)
+//	{
+//		CPen pen(lineType, width, color);	//建立畫筆物件
+//		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
+//		dc.MoveTo(StartPnt);	//移至直線起點
+//		dc.LineTo(EndPnt);	//移至直線終點
+//		dc.SelectObject(oldPen);	//還原選取的畫筆物件
+//	}
+//	void draw2(CDC &dc)
+//	{
+//		CPen pen(LineType, LineWidth, color);	//建立畫筆物件//PS_DASHDOT PS_SOLID
+//		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
+//		dc.MoveTo(StartPnt);	//移至直線起點
+//		dc.LineTo(EndPnt);	//移至直線終點
+//		dc.SelectObject(oldPen);	//還原選取的畫筆物件
+//	}
+//	void draw3(CDC &dc, int angle)
+//	{
+//		double tempang, x, y, tempangu, tempangd;
+//		double ang0, angu, angd, Statangle, angS;
+//		double LengthU, LengthD;
+//		//	CPen pen(PS_SOLID, LineWidth,color);	//建立畫筆物件
+//		CPen pen(PS_SOLID, 3, color);	//建立畫筆物件
+//		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
+//		CBrush m_newbrush;
+//		//   ang0=atan2((double)-1.0,(double)0);
+//		Statangle = 245;
+//		angS = -3.14159 * 2 / (360. / Statangle);
+//		ang0 = atan2((double)0, (double)1) + angS;
+//		x = (ArrowUp.x - StartPnt.x);
+//		y = (ArrowUp.y - StartPnt.y);
+//		angu = atan2((double)y, (double)x) + angS;
+//		x = (ArrowDown.x - StartPnt.x);
+//		y = (ArrowDown.y - StartPnt.y);
+//		angd = atan2((double)y, (double)x) + angS;
+//		tempang = ang0 + (angle*3.14159 * 2) / 60.;
+//		tempangu = angu + (angle*3.14159 * 2) / 60.;
+//		tempangd = angd + (angle*3.14159 * 2) / 60.;
+//		/* EndPnt.x=EndPnt.x+Length*cos(tempang);
+//		EndPnt.y=EndPnt.y+Length*sin(tempang);
+//		ArrowUp.x=ArrowUp.x+Length*cos(tempang);
+//		ArrowUp.y=ArrowUp.y+Length*sin(tempang);
+//		ArrowDown.x=ArrowDown.x+Length*cos(tempang);
+//		ArrowDown.y=ArrowDown.y+Length*sin(tempang); 		*/
+//		int EndPnt_x, EndPnt_y;
+//		int ArrowUp_x, ArrowUp_y;
+//		int ArrowDown_x, ArrowDown_y;
+//		/*    EndPnt_x=(EndPnt.x-StartPnt.x)*cos(tempang)+StartPnt.x;
+//		EndPnt_y=(EndPnt.y-StartPnt.y)*cos(tempang)+StartPnt.y;
+//		ArrowUp_x=(ArrowUp.x-StartPnt.x)*cos(tempang)+StartPnt.x;
+//		ArrowUp_y=(ArrowUp.y-StartPnt.y)*cos(tempang)+StartPnt.y;
+//		ArrowDown_x=(ArrowDown.x-StartPnt.x)*cos(tempang)+StartPnt.x;
+//		ArrowDown_y=(ArrowDown.y-StartPnt.y)*cos(tempang)+StartPnt.y;*/
+//
+//		LengthU = sqrt(double(ArrowUp.x - StartPnt.x)*(ArrowUp.x - StartPnt.x) + (ArrowUp.y - StartPnt.y)*(ArrowUp.y - StartPnt.y));
+//
+//		LengthD = sqrt(double(ArrowDown.x - StartPnt.x)*(ArrowDown.x - StartPnt.x) + (ArrowDown.y - StartPnt.y)*(ArrowDown.y - StartPnt.y));
+//		EndPnt_x = Length * cos(tempang) + StartPnt.x;
+//		EndPnt_y = Length * sin(tempang) + StartPnt.y;
+//		ArrowUp_x = LengthU * cos(tempangu) + StartPnt.x;
+//		ArrowUp_y = LengthU * sin(tempangu) + StartPnt.y;
+//		ArrowDown_x = LengthD * cos(tempangd) + StartPnt.x;
+//		ArrowDown_y = LengthD * sin(tempangd) + StartPnt.y;
+//
+//		CPoint Pt[3];
+//		Pt[0].SetPoint(EndPnt_x, EndPnt_y);
+//		Pt[1].SetPoint(ArrowUp_x, ArrowUp_y);
+//		Pt[2].SetPoint(ArrowDown_x, ArrowDown_y);
+//		//  m_newbrush.CreateSolidBrush(color);
+//		m_newbrush.CreateHatchBrush(5, RGB(0, 55, 55));
+//
+//		dc.SelectObject(&m_newbrush);
+//		dc.MoveTo(StartPnt);	//移至直線起點
+//		dc.LineTo(Pt[0]);	//移至直線終點
+//		dc.Polygon(Pt, 3);	//繪出矩形
+//		dc.SelectObject(oldPen);	//還原選取的畫筆物件
+//	}
+//
+//};
 
-class MyArrow : public Shape	//直線類別
+class MyLine : public Shape	// 直線類別 
 {
 public:
-	int Length;
-	CPoint  ArrowUp, ArrowDown;
-	MyArrow()
-	{
-		color = RGB(255, 0, 0);
-		shapenum = 10;
-		StartPnt.SetPoint(500, 300);
-		//StartPnt.x=StartPnt.y=400;
-		LineWidth = 1;
-		Length = 300;
-		EndPnt.SetPoint(StartPnt.x + Length, StartPnt.y);
-		ArrowUp.SetPoint(int(EndPnt.x - Length / 10.), int(EndPnt.y + Length / 10.));
-		ArrowDown.SetPoint(int(EndPnt.x - Length / 10.), int(EndPnt.y - Length / 10.));
-	}
-
-	//建構子
-	MyArrow(CPoint StartPnt2, CPoint EndPnt2, COLORREF color2)
-	{
-		color = color2;
-		shapenum = ID_DRAW_LINE;
-		StartPnt = StartPnt2;
-		EndPnt = EndPnt2;
-
-	}
-	//過載=運算子
-	MyArrow & operator= (MyArrow & l)
-	{
-		StartPnt = l.StartPnt;
-		color = l.color;
-		LineWidth = l.LineWidth;
-		EndPnt = l.EndPnt;
-		shapenum = l.shapenum;
-		return *this;
-	}
-	void draw(CDC &dc, COLORREF color, COLORREF fcolor,
-		int width, int lineType, BOOL Filled = false)
-	{
-		CPen pen(lineType, width, color);	//建立畫筆物件
-		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
-		dc.MoveTo(StartPnt);	//移至直線起點
-		dc.LineTo(EndPnt);	//移至直線終點
-		dc.SelectObject(oldPen);	//還原選取的畫筆物件
-	}
-	void draw2(CDC &dc)
-	{
-		CPen pen(LineType, LineWidth, color);	//建立畫筆物件//PS_DASHDOT PS_SOLID
-		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
-		dc.MoveTo(StartPnt);	//移至直線起點
-		dc.LineTo(EndPnt);	//移至直線終點
-		dc.SelectObject(oldPen);	//還原選取的畫筆物件
-	}
-	void draw3(CDC &dc, int angle)
-	{
-		double tempang, x, y, tempangu, tempangd;
-		double ang0, angu, angd, Statangle, angS;
-		double LengthU, LengthD;
-		//	CPen pen(PS_SOLID, LineWidth,color);	//建立畫筆物件
-		CPen pen(PS_SOLID, 3, color);	//建立畫筆物件
-		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
-		CBrush m_newbrush;
-		//   ang0=atan2((double)-1.0,(double)0);
-		Statangle = 245;
-		angS = -3.14159 * 2 / (360. / Statangle);
-		ang0 = atan2((double)0, (double)1) + angS;
-		x = (ArrowUp.x - StartPnt.x);
-		y = (ArrowUp.y - StartPnt.y);
-		angu = atan2((double)y, (double)x) + angS;
-		x = (ArrowDown.x - StartPnt.x);
-		y = (ArrowDown.y - StartPnt.y);
-		angd = atan2((double)y, (double)x) + angS;
-		tempang = ang0 + (angle*3.14159 * 2) / 60.;
-		tempangu = angu + (angle*3.14159 * 2) / 60.;
-		tempangd = angd + (angle*3.14159 * 2) / 60.;
-		/* EndPnt.x=EndPnt.x+Length*cos(tempang);
-		EndPnt.y=EndPnt.y+Length*sin(tempang);
-		ArrowUp.x=ArrowUp.x+Length*cos(tempang);
-		ArrowUp.y=ArrowUp.y+Length*sin(tempang);
-		ArrowDown.x=ArrowDown.x+Length*cos(tempang);
-		ArrowDown.y=ArrowDown.y+Length*sin(tempang); 		*/
-		int EndPnt_x, EndPnt_y;
-		int ArrowUp_x, ArrowUp_y;
-		int ArrowDown_x, ArrowDown_y;
-		/*    EndPnt_x=(EndPnt.x-StartPnt.x)*cos(tempang)+StartPnt.x;
-		EndPnt_y=(EndPnt.y-StartPnt.y)*cos(tempang)+StartPnt.y;
-		ArrowUp_x=(ArrowUp.x-StartPnt.x)*cos(tempang)+StartPnt.x;
-		ArrowUp_y=(ArrowUp.y-StartPnt.y)*cos(tempang)+StartPnt.y;
-		ArrowDown_x=(ArrowDown.x-StartPnt.x)*cos(tempang)+StartPnt.x;
-		ArrowDown_y=(ArrowDown.y-StartPnt.y)*cos(tempang)+StartPnt.y;*/
-
-		LengthU = sqrt(double(ArrowUp.x - StartPnt.x)*(ArrowUp.x - StartPnt.x) + (ArrowUp.y - StartPnt.y)*(ArrowUp.y - StartPnt.y));
-
-		LengthD = sqrt(double(ArrowDown.x - StartPnt.x)*(ArrowDown.x - StartPnt.x) + (ArrowDown.y - StartPnt.y)*(ArrowDown.y - StartPnt.y));
-		EndPnt_x = Length * cos(tempang) + StartPnt.x;
-		EndPnt_y = Length * sin(tempang) + StartPnt.y;
-		ArrowUp_x = LengthU * cos(tempangu) + StartPnt.x;
-		ArrowUp_y = LengthU * sin(tempangu) + StartPnt.y;
-		ArrowDown_x = LengthD * cos(tempangd) + StartPnt.x;
-		ArrowDown_y = LengthD * sin(tempangd) + StartPnt.y;
-
-		CPoint Pt[3];
-		Pt[0].SetPoint(EndPnt_x, EndPnt_y);
-		Pt[1].SetPoint(ArrowUp_x, ArrowUp_y);
-		Pt[2].SetPoint(ArrowDown_x, ArrowDown_y);
-		//  m_newbrush.CreateSolidBrush(color);
-		m_newbrush.CreateHatchBrush(5, RGB(0, 55, 55));
-
-		dc.SelectObject(&m_newbrush);
-		dc.MoveTo(StartPnt);	//移至直線起點
-		dc.LineTo(Pt[0]);	//移至直線終點
-		dc.Polygon(Pt, 3);	//繪出矩形
-		dc.SelectObject(oldPen);	//還原選取的畫筆物件
-	}
-
-};
-
-class MyLine : public Shape	//直線類別 
-{
-public:
+	// Constructor
 	MyLine()
 	{
 		color = RGB(255, 0, 0);
@@ -194,7 +199,7 @@ public:
 		StartPnt = (0, 0);
 	}
 
-	//建構子
+	// Constructor
 	MyLine(CPoint StartPnt2, CPoint EndPnt2, COLORREF color2)
 	{
 		color = color2;
@@ -203,7 +208,7 @@ public:
 		EndPnt = EndPnt2;
 
 	}
-	//過載=運算子
+	// Override operator=
 	MyLine & operator= (MyLine & l)
 	{
 		StartPnt = l.StartPnt;
@@ -246,6 +251,8 @@ class MyEllipse : public Shape	//橢圓形類別
 public:
 	BOOL Filled;
 	COLORREF fcolor;
+
+	// Constructor
 	MyEllipse()
 	{
 		color = RGB(0, 255, 0);
@@ -261,7 +268,7 @@ public:
 		StartPnt = StartPnt2;
 		EndPnt = EndPnt2;
 	}
-	//過載=運算子
+	// Override operator=
 	MyEllipse & operator= (MyEllipse & l)	//過載=運算子
 	{
 		Filled = l.Filled;
@@ -345,6 +352,8 @@ class MyRectangle : public Shape	//矩形類別
 public:
 	BOOL Filled;
 	COLORREF fcolor;
+
+	// Constructor
 	MyRectangle()
 	{
 		color = RGB(255, 0, 0);
@@ -359,7 +368,8 @@ public:
 		StartPnt = StartPnt2;
 		EndPnt = EndPnt2;
 	}
-	//過載=運算子
+
+	// Override operator=
 	MyRectangle & operator= (MyRectangle & l)	//過載=運算子
 	{
 		Filled = l.Filled;
@@ -579,7 +589,7 @@ public:
 		StartPnt = (0, 0);
 	}
 
-	//建構子
+	// Constructor
 	MyPolyLine(CPoint StartPnt2, CPoint EndPnt2, COLORREF color2)
 	{
 		color = color2;
@@ -602,7 +612,7 @@ public:
 		}
 	}
 
-	//過載=運算子
+	// Override operator=
 	MyPolyLine & operator= (MyPolyLine & myPolyLine)
 	{
 		StartPnt = myPolyLine.StartPnt;
@@ -693,7 +703,7 @@ public:
 		}
 	}
 
-	//過載=運算子
+	// Override operator=
 	MyPolyGon & operator= (MyPolyGon & MyPolyGon)
 	{
 		StartPnt = MyPolyGon.StartPnt;
@@ -762,34 +772,34 @@ public:
 		}
 		dc.SelectObject(oldPen);	//還原選取的畫筆物件
 	}
-	void draw4(CDC &dc)
-	{
-		CPen pen(LineType, LineWidth, color);	//建立畫筆物件//PS_DASHDOT PS_SOLID
-		CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
-		CBrush myBrush;
-		if (Filled)
-		{
-			if (Fill_Selected == 0)
-				myBrush.CreateSolidBrush(fcolor);
-			else
-				myBrush.CreateHatchBrush(FillHatchType, fcolor);    	//    myBrush.CreateSolidBrush(fcolor);
-			dc.SelectObject(&myBrush);
-		}
-		else
-		{
-			dc.SelectStockObject(NULL_BRUSH);	//設定DC物件不使用畫筆
-		}
+	//void draw4(CDC &dc)
+	//{
+	//	CPen pen(LineType, LineWidth, color);	//建立畫筆物件//PS_DASHDOT PS_SOLID
+	//	CPen *oldPen = dc.SelectObject(&pen);	//設定DC物件使用pen物件
+	//	CBrush myBrush;
+	//	if (Filled)
+	//	{
+	//		if (Fill_Selected == 0)
+	//			myBrush.CreateSolidBrush(fcolor);
+	//		else
+	//			myBrush.CreateHatchBrush(FillHatchType, fcolor);    	//    myBrush.CreateSolidBrush(fcolor);
+	//		dc.SelectObject(&myBrush);
+	//	}
+	//	else
+	//	{
+	//		dc.SelectStockObject(NULL_BRUSH);	//設定DC物件不使用畫筆
+	//	}
 
-		int PNum = PArray.GetSize();
-		CPoint* pnts = (CPoint*)calloc(PNum, sizeof(CPoint));
-		for (int i = 0; i < PNum; i++) {
-			//dc.MoveTo(PArray[i]);	//移至直線起點
-			//dc.LineTo(PArray[i + 1]);	//移至直線終點
-			pnts[i] = PArray[i];
-			TRACE("%d, %d\n", pnts[i].x, pnts[i].y);
-		}
-		dc.Polygon(pnts, PNum);
-		free(pnts);
-		dc.SelectObject(oldPen);	//還原選取的畫筆物件
-	}
+	//	int PNum = PArray.GetSize();
+	//	CPoint* pnts = (CPoint*)calloc(PNum, sizeof(CPoint));
+	//	for (int i = 0; i < PNum; i++) {
+	//		//dc.MoveTo(PArray[i]);	//移至直線起點
+	//		//dc.LineTo(PArray[i + 1]);	//移至直線終點
+	//		pnts[i] = PArray[i];
+	//		TRACE("%d, %d\n", pnts[i].x, pnts[i].y);
+	//	}
+	//	dc.Polygon(pnts, PNum);
+	//	free(pnts);
+	//	dc.SelectObject(oldPen);	//還原選取的畫筆物件
+	//}
 };
