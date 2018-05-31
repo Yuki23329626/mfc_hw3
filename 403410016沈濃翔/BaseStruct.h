@@ -271,14 +271,14 @@ public:
 	// Override operator=
 	MyEllipse & operator= (MyEllipse & l)	//過載=運算子
 	{
+		StartPnt = l.StartPnt;
+		EndPnt = l.EndPnt;
+		LineWidth = l.LineWidth;
+		LineType = l.LineType;
+		color = l.color;
 		Filled = l.Filled;
 		fcolor = l.fcolor;
-		StartPnt = l.StartPnt;
-		color = l.color;
-		LineWidth = l.LineWidth;
-		EndPnt = l.EndPnt;
 		shapenum = l.shapenum;
-		LineType = l.LineType;
 		return *this;
 	}
 	void draw(CDC & dc, COLORREF color, COLORREF fcolor, int width, int lineType, BOOL Filled = false)
@@ -372,14 +372,14 @@ public:
 	// Override operator=
 	MyRectangle & operator= (MyRectangle & l)	//過載=運算子
 	{
+		StartPnt = l.StartPnt;
+		EndPnt = l.EndPnt;
+		LineWidth = l.LineWidth;
+		LineType = l.LineType;
+		color = l.color;
 		Filled = l.Filled;
 		fcolor = l.fcolor;
-		StartPnt = l.StartPnt;
-		color = l.color;
-		LineWidth = l.LineWidth;
-		EndPnt = l.EndPnt;
 		shapenum = l.shapenum;
-		LineType = l.LineType;
 		return *this;
 	}
 	void draw(CDC & dc, COLORREF color, COLORREF fcolor, int width, int lineType, BOOL Filled = false)
@@ -755,7 +755,7 @@ public:
 			//dc.MoveTo(PArray[i]);	//移至直線起點
 			//dc.LineTo(PArray[i + 1]);	//移至直線終點
 			pnts[i] = PArray[i];
-			TRACE("%d, %d\n", pnts[i].x, pnts[i].y);
+			//TRACE("%d, %d\n", pnts[i].x, pnts[i].y);
 		}
 		dc.Polygon(pnts, PNum);
 		free(pnts);
